@@ -14,25 +14,27 @@ public class JsonResponseServiceImpl implements JsonResponseService {
 	private static Logger logger = LoggerFactory
 			.getLogger(JsonResponseServiceImpl.class);
 
-//	 private PersonService personService;
+	 private PersonService personService;
 
 	public JsonResponseServiceImpl() {
 	}
 
-//	 public void setPersonService(PersonService personService) {
-//	 this.personService = personService;
-//	 }
+	 public void setPersonService(PersonService personService) {
+	 this.personService = personService;
+	 }
 	
 	
-	public JsonResponseResult getJsonResponse(String message) {
+	public JsonResponseResult getJsonResponse(String name) {
 
-//		//add person to database
-//		 Person person = new Person("x", "@x");
-//		 personService.add(person);
+		//add person to database
+		 logger.info("create new object person");
+		 Person person = new Person(name, "@x"+name);
+		 logger.info("try to add new person to database");
+		 personService.add(person);
 
 		 //retreive json response message saying hello x
 		JsonResponseResult jsonResponseResult = new JsonResponseResult();
-		jsonResponseResult.setMessage("Hello " + message);
+		jsonResponseResult.setMessage("Hello " + name);
 
 		return jsonResponseResult;
 	}
