@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://camel.apache.org/schema/blueprint/cxf"
+	xmlns:jpa="http://aries.apache.org/xmlns/jpa/v1.1.0" xmlns:tx="http://aries.apache.org/xmlns/transactions/v1.0.0"
+	xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+  http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0 http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.1.0.xsd">
+
+
+
+	<bean id="restServiceImpl" class="com.person.rest.RestServiceImpl">
+		<property name="jsonResponseService" ref="jsonResponseService" />
+	</bean>
+
+
+
+	<!-- <reference id="nameEmailService" -->
+	<!-- interface="me.rerun.karafcxfcamel.service.base.NameEmailService"> -->
+	<!-- </reference> -->
+
+
+
+	<!-- <reference id="agePhoneService" -->
+	<!-- interface="me.rerun.karafcxfcamel.service.base.AgePhoneService"> -->
+	<!-- </reference> -->
+
+
+	<!-- Json Response Service -->
+	<service ref="jsonResponseService" interface="com.person.service.base.JsonResponseService">
+	</service>
+
+	<bean id="jsonResponseService" class="com.person.service.impl.JsonResponseServiceImpl">
+
+	</bean>
+
+	<!-- Defined the server endpoint to create the cxf-rs consumer -->
+
+	<!--address="http://localhost:9090/person" -->
+	<!-- <cxf:rsServer id="rsServer" address="${rsceltronEndpoint}" -->
+	<cxf:rsServer id="rsServer" address="/person"
+
+
+
+		serviceClass="com.person.rest.RestServiceImpl" loggingFeatureEnabled="true" />
+
+	<!-- The camel route context -->
+	<camelContext id="camel"
+		xmlns="http://camel.apache.org/schema/blueprint">
+		<packageScan>
+			<package>com.person.camel.beans</package>
+			<excludes>**.*Test*</excludes>
+			<includes>**.*</includes>
+		</packageScan>
+	</camelContext>
+
+
+
+
+
+</blueprint>
